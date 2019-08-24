@@ -22,13 +22,15 @@
 
     const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
-    const Notes = ({ data })=> {
+
+    const Notes = ({ notes })=> {
+      // console.log(notes.data);
       return(
         <div>
           <h1>Notes</h1>
             <ul>
               {
-                data.map( (note, idx) => <li key={ idx }>{ note.text }</li>)
+                notes.map( (note, idx) => <li key={ idx }>{ note.text }</li>)
               }
             </ul>
         </div>
@@ -52,8 +54,6 @@
       return  user;
     };
 
-    console.log(fetchUser());
-
 
 
     class App extends Component {
@@ -68,24 +68,17 @@
       async componentDidMount(){
         const user = await fetchUser();
         const notes = (await axios.get(`https://acme-users-api-rev.herokuapp.com/api/users/${user.id}/notes`)).data;
-        this.setState({ notes });
+        this.setState({ user, notes });
       }
 
 
-
-
       render(){
-        const { notes, users } = this.state;
+        const { notes, user } = this.state;
         setTimeout(()=>{
           console.log(notes)
         }, 1000)
         return(
-          <HashRouter>
-              <Route render = { ()=> <Nav notes = { notes } />} />
-              <Route path='/notes' render= { Notes } />
-
-
-          </HashRouter>
+          <Notes notes={ notes } />
         )
       }
     }
