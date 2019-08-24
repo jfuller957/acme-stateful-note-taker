@@ -22,6 +22,19 @@
 
     const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
+    const Notes = ({ data })=> {
+      return(
+        <div>
+          <h1>Notes</h1>
+            <ul>
+              {
+                data.map( (note, idx) => <li key={ idx }>{ note.text }</li>)
+              }
+            </ul>
+        </div>
+      );
+    }
+
     const fetchUser = async ()=> {
       const storage = window.localStorage;
       const userId = storage.getItem('userId');
@@ -70,8 +83,7 @@
           <HashRouter>
               <Route render = { ()=> <Nav notes = { notes } />} />
               <Route path='/notes' render= { Notes } />
-              <Route path='/archived' component= { archived }/>
-              <Route path='/notes/create'/>
+
 
           </HashRouter>
         )
