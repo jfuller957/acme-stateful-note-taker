@@ -10,6 +10,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.0.1/react-router-dom.min.js"></script>
   <title>Acme Stateful Note Taker</title>
+  <style>
+    nav {
+      display: flex;
+      justify-content: space-between;
+    }
+    li {
+      border: solid 1px black;
+    }
+  </style>
 </head>
 <body>
   <div id="root"></div>
@@ -22,6 +31,16 @@
 
     const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
+    const Nav = ()=> {
+      return(
+        <nav>
+          <NavLink to='/notes'>Notes</NavLink>
+          <NavLink to='/archived'>Archived</NavLink>
+          <NavLink to='/notes/create'>Create</NavLink>
+        </nav>
+      )
+    }
+
 
     const Notes = ({ notes })=> {
       // console.log(notes.data);
@@ -30,12 +49,18 @@
           <h1>Notes</h1>
             <ul>
               {
-                notes.map( (note, idx) => <li key={ idx }>{ note.text }</li>)
+                notes.map( (note, idx) =>
+                <div>
+                  <li key={ idx }>{ note.text }</li>
+                    <button>{ note.archived ? 'archived' : 'unarchived' }</button>
+                </div>
+                )
               }
             </ul>
         </div>
       );
     }
+
 
     const fetchUser = async ()=> {
       const storage = window.localStorage;
@@ -78,7 +103,10 @@
           console.log(notes)
         }, 1000)
         return(
-          <Notes notes={ notes } />
+          <HashRouter>
+            <Route render={ ()=> <Nav notes={ notes } /> } />
+            <Route path='/notes' render= { ()=> <Notes notes={ notes } /> } />
+          </HashRouter>
         )
       }
     }
