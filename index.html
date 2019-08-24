@@ -11,13 +11,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.0.1/react-router-dom.min.js"></script>
   <title>Acme Stateful Note Taker</title>
   <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
     nav {
       display: flex;
       justify-content: space-between;
     }
-    li {
-      border: solid 1px black;
+
+    a {
+      padding: 1rem;
+      border-radius: 0.25rem;
     }
+
+    .active {
+      background-color: tomato;
+      color: white;
+    }
+
+
   </style>
 </head>
 <body>
@@ -53,6 +66,7 @@
                 <div>
                   <li key={ idx }>{ note.text }</li>
                     <button>{ note.archived ? 'archived' : 'unarchived' }</button>
+                    <button>Destroy</button>
                 </div>
                 )
               }
