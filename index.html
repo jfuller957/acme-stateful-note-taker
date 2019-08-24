@@ -39,13 +39,26 @@
       return  user;
     };
 
+    console.log(fetchUser());
+
     class App extends Component {
       constructor(){
         super();
+        this.state = {
+          user: [],
+          notes: []
+        };
+      }
 
+      async componentDidMount(){
+        const user = await fetchUser();
+        const notes = (await axios.get(`https://acme-users-api-rev.herokuapp.com/api/users/${user.id}/notes`)).data;
+        this.setState({ notes });
       }
 
       render(){
+        const { notes } = this.state;
+
         return(
           <hr />
         )
