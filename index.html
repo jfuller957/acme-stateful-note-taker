@@ -41,11 +41,13 @@
 
     console.log(fetchUser());
 
+
+
     class App extends Component {
       constructor(){
         super();
         this.state = {
-          user: [],
+          user: {},
           notes: []
         };
       }
@@ -56,11 +58,22 @@
         this.setState({ notes });
       }
 
-      render(){
-        const { notes } = this.state;
 
+
+
+      render(){
+        const { notes, users } = this.state;
+        setTimeout(()=>{
+          console.log(notes)
+        }, 1000)
         return(
-          <hr />
+          <HashRouter>
+              <Route render = { ()=> <Nav notes = { notes } />} />
+              <Route path='/notes' render= { Notes } />
+              <Route path='/archived' component= { archived }/>
+              <Route path='/notes/create'/>
+
+          </HashRouter>
         )
       }
     }
