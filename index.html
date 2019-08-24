@@ -15,6 +15,26 @@
   <div id="root"></div>
 
   <script type="text/babel">
+    const { Component } = React;
+    const { render } = ReactDOM;
+    const root = document.querySelector('#root');
+    const { HashRouter, Switch, NavLink, Route, Redirect } = ReactRouterDOM;
+
+    class App extends Component {
+      constructor(){
+        super();
+
+      }
+
+      render(){
+        return(
+          <hr />
+        )
+      }
+    }
+
+    render(<App />, root);
+
 
   </script>
 </body>
